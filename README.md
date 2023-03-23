@@ -2,11 +2,12 @@
 
 This guide helps on implementing bgp-enabled vpn connection between AWS and Azure.
 
-- A simplified way of this [article](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-aws-bgp), progressing in Terraform (widely used with slow pace).
+- A simplified way of this [article](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-aws-bgp).
+- Here, executing in Terraform (widely used with slow pace).
 
 - The scripts are in cdk and terraform:
-  - - On AWS side in [CDK](https://github.com/sree7k7/AWS-multi-S2S) (python)
-  - - Azure side in [terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started).
+  - On AWS side in [CDK](https://github.com/sree7k7/AWS-multi-S2S) (python)
+  - Azure side in [terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started).
 
 ## Run
 
@@ -48,7 +49,7 @@ Azure
 
 AWS
 
-3. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy.
+3. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy ( It will provision: two (cgw) customer gateways, vgw, two s2s connections, vpc, private subent, ec2 ).
 
 4. Execute the following commands in terminal.
 
@@ -85,17 +86,21 @@ destinationCIDR = "10.2.0.0/16"
 - In AWS Copy the both outside tunnel ip's.
 
 - Get the PSK for Tunnel-1 and Tunnel-2.
-  - - In AWS management console. Navigate to VPN → site-to-site → choose the tunnel → click: Actions → Modify VPN tunnel options.
+  - In AWS management console. Navigate to VPN → site-to-site → choose the tunnel → click: Actions → Modify VPN tunnel options.
   ![ModifyVPNTunnel](pic/AWS-modify-vpn.png)
 - Give/paste the AWS tunnel public-ip's and PSK secrets to Azure VPN connections. (doable manually or through code).
-  - - In variable.tf file modify the variables: *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
+  - In variable.tf file modify the variables: *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
   *shared_key_tunnel1* and *shared_key_tunnel2*
 - execute: `terraform apply`
 
 ## Verify the connections
 
-- Check the AWS tunnels are up.![TunnelState](pic/AWS-tunnel-state.png).
-- Check the Azure VPN gateway connections. 
+- Check the AWS tunnels are up.![TunnelState](pic/AWS-tunnel-state.png)
+- Check the Azure VPN gateway connections.
 ![AzureVPNGWconnections](pic/vpn-connections.png)
 - Check the BGP peers status on Azure.
 ![AzureBGP-peers](pic/azure-bgp-peers.png)
+- Connect the azure VM using bastion host.
+  - username: demousr
+  - passowrd: Password@123
+- Reachout/ping the destination vm using private ip.
