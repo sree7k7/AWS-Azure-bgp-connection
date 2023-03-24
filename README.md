@@ -26,7 +26,7 @@ This guide helps on implementing bgp-enabled vpn connection between AWS and Azur
 
 ## Purpose
 
-To connect multi (aws) tunnels/sites for redundancy with active-active bgp-enabled azure vpn gateway.
+To connect multi (aws) tunnels/sites for reliable with active-active bgp-enabled azure vpn gateway.
 And to avoid active-passive connection with one custom BGP ip on azure vpn gateway.
 
 ## Execute scripts
@@ -49,7 +49,7 @@ And to avoid active-passive connection with one custom BGP ip on azure vpn gatew
 
 #### AWS
 
-4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2).
+4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (*It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2*).
 
 5. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
 *VPNGWinstance1_pip*. which you copied in above step [3](#3) (see pic).
@@ -85,7 +85,7 @@ cdk deploy
 **Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating ....soon for **instance1**
 
 - In AWS Copy the both outside tunnel ip's.
-
+  - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel.
 - Get the PSK for Tunnel-1 and Tunnel-2.
   - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel → click: Actions → Modify VPN tunnel options.
   ![ModifyVPNTunnel](pic/AWS-modify-vpn.png)
@@ -102,6 +102,6 @@ cdk deploy
 - Check the BGP peers status on Azure.
 ![AzureBGP-peers](pic/azure-bgp-peers.png)
 - Connect the azure VM using bastion host.
-  - username: demousr
-  - passowrd: Password@123
+  - username: `demousr`
+  - passowrd: `Password@123`
 - Reachout/ping the destination vm using private ip.
