@@ -49,10 +49,10 @@ Azure
 
 AWS
 
-4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2).
+#### 4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2).
 
 5. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
-*VPNGWinstance1_pip*. which you copied in above step (see pic).
+*VPNGWinstance1_pip*. which you copied in above step [3](#3) (see pic).
 
 ```
 # AWS VPC
