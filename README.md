@@ -51,15 +51,7 @@ AWS
 
 3. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy ( It will provision: two (cgw) customer gateways, vgw, two s2s connections, vpc, private subent, ec2 ).
 
-4. Execute the following commands in terminal.
-
-```
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-- In parameters.py file change the ip's. *VPNGWinstance0_pip* and
+4. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
 *VPNGWinstance1_pip*. which you copied in above step (see pic).
 
 ```
@@ -77,6 +69,15 @@ VPNconnetion2Tunnel2 = "169.254.22.4/30"
 VPNGWinstance0_pip = "20.105.96.150"
 VPNGWinstance1_pip = "20.105.96.15"
 destinationCIDR = "10.2.0.0/16"
+```
+
+5. Execute the following commands in terminal.
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cdk deploy
 ```
 
 ## Configuration
