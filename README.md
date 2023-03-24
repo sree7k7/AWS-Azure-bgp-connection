@@ -55,7 +55,7 @@ terraform apply
 5. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
 *VPNGWinstance1_pip*. which you copied in above step [3](#3) - (see pic).
 
-```text
+```python
 # AWS VPC
 regionName = "eu-west-1"
 vpc_cidr = "10.3.0.0/16"
