@@ -37,9 +37,11 @@ And to avoid active-passive connection with one custom BGP ip on azure vpn gatew
 
 2. execute below cmds:
 
-- terraform init
-- terraform plan
-- terraform apply
+```terraform
+terraform init
+terraform plan
+terraform apply
+```
 
 **Note**: If fails, try to execute: **terraform init -upgrade** on terminal and execute cmd: **terraform apply --auto-approve**.
 
@@ -52,9 +54,9 @@ And to avoid active-passive connection with one custom BGP ip on azure vpn gatew
 4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (*It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2*).
 
 5. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
-*VPNGWinstance1_pip*. which you copied in above step [3](#3) (see pic).
+*VPNGWinstance1_pip*. which you copied in above step [3](#3) - (see pic).
 
-```
+```text
 # AWS VPC
 regionName = "eu-west-1"
 vpc_cidr = "10.3.0.0/16"
@@ -73,7 +75,7 @@ destinationCIDR = "10.2.0.0/16"
 
 6. Execute the following commands in terminal.
 
-```
+```python
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -82,7 +84,7 @@ cdk deploy
 
 ## Configuration
 
-**Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating ....soon for **instance1**
+> **Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating ....soon for **instance1**
 
 - In AWS Copy the both outside tunnel ip's.
   - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel.
