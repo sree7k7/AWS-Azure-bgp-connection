@@ -82,7 +82,7 @@ cdk deploy
 
 ## Configuration
 
-**Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating .... **instance1**
+**Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating ....soon for **instance1**
 
 - In AWS Copy the both outside tunnel ip's.
 
