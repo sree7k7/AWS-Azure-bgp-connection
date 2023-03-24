@@ -42,7 +42,7 @@ terraform init
 terraform apply
 ```
 
-**Note**: If fails, try to execute: **terraform init -upgrade** on terminal and execute cmd: **terraform apply**.
+> **Note**: If fails, try to execute: **terraform init -upgrade** on terminal and execute cmd: **terraform apply**.
 
 3. Copy the ASN and public ip's of vpn gateway for instanc0, 1.
 
