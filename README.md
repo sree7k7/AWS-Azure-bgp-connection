@@ -3,7 +3,7 @@
 This guide helps on implementing bgp-enabled vpn connection between AWS and Azure.
 
 - A simplified way of this [article](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-aws-bgp).
-- Here, executing in Terraform (widely used with slow pace).
+- Here, executing in Terraform (widely used with it's pace).
 
 - The scripts are in cdk and terraform:
   - On AWS side in [CDK](https://github.com/sree7k7/AWS-multi-S2S) (python)
@@ -67,9 +67,9 @@ VPNconnetion2Tunnel1 = "169.254.21.4/30"
 VPNconnetion2Tunnel2 = "169.254.22.4/30"      
 
 # destination network
+destinationCIDR = "10.2.0.0/16"
 VPNGWinstance0_pip = "20.105.96.150"
 VPNGWinstance1_pip = "20.105.96.15"
-destinationCIDR = "10.2.0.0/16"
 ```
 
 6. Execute the following commands in terminal.
