@@ -39,11 +39,10 @@ And to avoid active-passive connection with one custom BGP ip on azure vpn gatew
 
 ```terraform
 terraform init
-terraform plan
 terraform apply
 ```
 
-**Note**: If fails, try to execute: **terraform init -upgrade** on terminal and execute cmd: **terraform apply --auto-approve**.
+**Note**: If fails, try to execute: **terraform init -upgrade** on terminal and execute cmd: **terraform apply**.
 
 3. Copy the ASN and public ip's of vpn gateway for instanc0, 1.
 
