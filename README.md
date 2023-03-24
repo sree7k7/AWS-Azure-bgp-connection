@@ -31,7 +31,7 @@ And to avoid active-passive connection with one custom BGP ip on azure vpn gatew
 
 ## Execute scripts
 
-Azure
+#### Azure
 
 1. Clone [this](https://github.com/sree7k7/AWS-Azure-bgp-connection) and deploy the code as it is (using terraform). Later, change the parameters (ip's).
 
@@ -47,9 +47,9 @@ Azure
 
 ![Azure-vpn-gateway-active-active-mode](pic/azure-vpn-gateway.png)
 
-AWS
+#### AWS
 
-#### 4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2).
+4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2).
 
 5. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
 *VPNGWinstance1_pip*. which you copied in above step [3](#3) (see pic).
@@ -82,7 +82,7 @@ cdk deploy
 
 ## Configuration
 
-**Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**.
+**Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating .... **instance1**
 
 - In AWS Copy the both outside tunnel ip's.
 
@@ -90,7 +90,7 @@ cdk deploy
   - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel → click: Actions → Modify VPN tunnel options.
   ![ModifyVPNTunnel](pic/AWS-modify-vpn.png)
 - Give/paste the AWS tunnel public-ip's and PSK secrets to Azure VPN connections. (doable manually or through code).
-  - In variable.tf file modify the variables (received from aws): *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
+  - In variable.tf file modify the variables (received from [aws](#aws)): *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
   *shared_key_tunnel1* and *shared_key_tunnel2*
 - execute: `terraform apply`
 
