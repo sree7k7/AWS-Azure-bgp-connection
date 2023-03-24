@@ -26,7 +26,7 @@ This guide helps on implementing bgp-enabled vpn connection between AWS and Azur
 
 ## Purpose
 
-To connect multi (aws) tunnels/sites for reliable with active-active bgp-enabled azure vpn gateway.
+To connect multi (aws) tunnels/sites for reliable active-active bgp-enabled azure vpn gateway.
 And to avoid active-passive connection with one custom BGP ip on azure vpn gateway.
 
 ## Execute scripts
