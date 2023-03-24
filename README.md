@@ -43,15 +43,15 @@ Azure
 
 **Note**: If fails, try to execute: **terraform init -upgrade** on terminal and execute cmd: **terraform apply --auto-approve**.
 
-- Copy the public ip's of vpn gateway for instanc0, 1.
-- Copy the ASN.
+3. Copy the ASN and public ip's of vpn gateway for instanc0, 1.
+
 ![Azure-vpn-gateway-active-active-mode](pic/azure-vpn-gateway.png)
 
 AWS
 
-3. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy ( It will provision: two (cgw) customer gateways, vgw, two s2s connections, vpc, private subent, ec2 ).
+4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2).
 
-4. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
+5. In parameters.py file change the ip's. *VPNGWinstance0_pip* and
 *VPNGWinstance1_pip*. which you copied in above step (see pic).
 
 ```
@@ -71,7 +71,7 @@ VPNGWinstance1_pip = "20.105.96.15"
 destinationCIDR = "10.2.0.0/16"
 ```
 
-5. Execute the following commands in terminal.
+6. Execute the following commands in terminal.
 
 ```
 python3 -m venv .venv
@@ -87,10 +87,10 @@ cdk deploy
 - In AWS Copy the both outside tunnel ip's.
 
 - Get the PSK for Tunnel-1 and Tunnel-2.
-  - In AWS management console. Navigate to VPN → site-to-site → choose the tunnel → click: Actions → Modify VPN tunnel options.
+  - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel → click: Actions → Modify VPN tunnel options.
   ![ModifyVPNTunnel](pic/AWS-modify-vpn.png)
 - Give/paste the AWS tunnel public-ip's and PSK secrets to Azure VPN connections. (doable manually or through code).
-  - In variable.tf file modify the variables: *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
+  - In variable.tf file modify the variables (received from aws): *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
   *shared_key_tunnel1* and *shared_key_tunnel2*
 - execute: `terraform apply`
 
