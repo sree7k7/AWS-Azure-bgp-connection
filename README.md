@@ -11,10 +11,13 @@ This guide helps on implementing bgp-enabled vpn connection between AWS and Azur
 
 ## Run
 
-- [Purpose](#purpose)
-- [Execute scripts](#execute-scripts)
-- [Configuration](#configuration)
-- [Verify the connection](#verify-the-connections)
+  - [Prerequsites](#prerequsites)
+  - [Purpose](#purpose)
+  - [Execute scripts](#execute-scripts)
+    - [Azure](#azure)
+    - [AWS](#aws)
+  - [Configuration](#configuration)
+  - [Verify the connections](#verify-the-connections)
 
 ![AWS-Azure](pic/AWS-Azure-design.png)
 
@@ -53,7 +56,7 @@ terraform apply
 4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (*It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2*).
 
 5. In ***parameters.p***y file change the ip's. *VPNGWinstance0_pip* and
-*VPNGWinstance1_pip*. which you copied in above step [3](#3) - (see pic).
+*VPNGWinstance1_pip*. which you copied in above step [3](#3) — (*see pic*).
 
 ```python
 # AWS VPC
