@@ -3,10 +3,10 @@
 This guide helps on implementing bgp-enabled vpn connection between AWS and Azure.
 
 - A simplified way of this [article](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-aws-bgp).
-- Here, executing in Terraform (widely used with it's pace).
+- Here, executing scripts in [CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) and [terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started) (widely used with it's pace).
 
-- The scripts are in cdk and terraform:
-  - On AWS side in [CDK](https://github.com/sree7k7/AWS-multi-S2S) (python)
+
+  - On AWS side in [CDK](https://github.com/sree7k7/AWS-multi-S2S) (python).
   - Azure side in [terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started).
 
 ## Run
@@ -18,6 +18,7 @@ This guide helps on implementing bgp-enabled vpn connection between AWS and Azur
     - [AWS](#aws)
   - [Configuration](#configuration)
   - [Verify the connections](#verify-the-connections)
+  - [Clean up](#clean-up)
 
 ![AWS-Azure](pic/AWS-Azure-design.png)
 
@@ -109,3 +110,9 @@ cdk deploy
   - username: `demousr`
   - passowrd: `Password@123`
 - Reachout/ping the destination vm using private ip.
+
+## Clean up
+- In terminal execute the following command:
+```azcli
+az group delete -g "aws-azure-bgp" --no-wait
+```

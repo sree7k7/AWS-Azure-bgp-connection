@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "rg" {
 # Create virtual network
 resource "azurerm_virtual_network" "vnet_work" {
   name                = var.vnet_config["vnetname"]
-  address_space       = var.vnet_cidr
+  address_space       = ["${var.vnet_cidr}"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
@@ -18,7 +18,7 @@ resource "azurerm_subnet" "vnet_public_subnet" {
   name                 = var.vnet_config["public_subnet"]
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet_work.name
-  address_prefixes     = var.public_subnet_address
+  address_prefixes     = ["${var.public_subnet_address}"]
 }
 
 # Create private subnet
@@ -26,7 +26,7 @@ resource "azurerm_subnet" "vnet_private_subnet" {
   name                 = var.vnet_config["private_subnet"]
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet_work.name
-  address_prefixes     = var.private_subnet_address
+  address_prefixes     = ["${var.private_subnet_address}"]
 }
 
 # Create Network Security Group and rule
@@ -138,7 +138,7 @@ resource "azurerm_subnet" "vnet_gateway_subnet" {
   name                 = "GatewaySubnet"
   resource_group_name = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet_work.name
-  address_prefixes     = var.gateway_subnet_address
+  address_prefixes     = ["${var.gateway_subnet_address}"]
 }
 
 # vpngw pip instance0
@@ -179,7 +179,8 @@ resource "azurerm_virtual_network_gateway" "VirtualNetworkGateway" {
       ip_configuration_name = "vnetGatewayConfig1"
     }
     peering_addresses {
-      apipa_addresses       = ["169.254.21.6","169.254.22.6"]
+      apipa_addresses       = var.connection2_custom_apipa_bgp_ip_addresses
+      # apipa_addresses       = ["169.254.21.6","169.254.22.6"]
       ip_configuration_name = "vnetGatewayConfig2"
     }
   }
@@ -216,7 +217,7 @@ resource "azurerm_local_network_gateway" "LGW_AWSTunnel1ToVPNGWInstance0" {
 }
 
 # Site VPN connection
-resource "azurerm_virtual_network_gateway_connection" "AWSTunnel1ToVPNGWInstance0" {
+resource "azurerm_virtual_network_gateway_connection" "connection1_AWSTunnel1ToVPNGWInstance0" {
   name                = "AWSTunnel1ToVPNGWInstance0"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -249,7 +250,7 @@ resource "azurerm_local_network_gateway" "LGW_AWSTunnel2ToVPNGWInstance0" {
 }
 
 # Site VPN connection
-resource "azurerm_virtual_network_gateway_connection" "AWSTunnel2ToVPNGWInstance0" {
+resource "azurerm_virtual_network_gateway_connection" "connection1_AWSTunnel2ToVPNGWInstance0" {
   name                = "AWSTunnel2ToVPNGWInstance0"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -260,16 +261,85 @@ resource "azurerm_virtual_network_gateway_connection" "AWSTunnel2ToVPNGWInstance
   enable_bgp = true
   custom_bgp_addresses {
     primary = var.AWSTunnel2ToVPNGWInstance0_primary_custom_bpg_address
-    secondary = "169.254.22.6"
+    secondary = var.secondary_custom_bgp_ip_address
   }
 }
+
+##---------- Local network gateway pointing to aws s2s connection 2-----
+
+## Local network Gateway pointing to AWS S2S connection 2 tunnel-1
+resource "azurerm_local_network_gateway" "LGW_S2S_2_AWSTunnel1ToVPNGWInstance1" {
+  name                = "LGW_S2S_2_AWSTunnel1ToVPNGWInstance1"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  gateway_address     = var.connection2_vpn_gateway_pip_tunnel1
+
+  bgp_settings {
+      asn                 = var.asn
+      bgp_peering_address = var.aws_bgp_ip_address_connection2_tunnel1
+      peer_weight         = 0
+    }
+  depends_on = [
+    azurerm_virtual_network_gateway.VirtualNetworkGateway
+  ]
+}
+
+# Site VPN connection
+resource "azurerm_virtual_network_gateway_connection" "S2SConnection2_AWSTunnel1ToVPNGWInstance1" {
+  name                = "S2SConnection2_AWSTunnel1ToVPNGWInstance1"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  type                       = "IPsec"
+  virtual_network_gateway_id = azurerm_virtual_network_gateway.VirtualNetworkGateway.id
+  local_network_gateway_id   = azurerm_local_network_gateway.LGW_S2S_2_AWSTunnel1ToVPNGWInstance1.id
+  shared_key = var.shared_key_connection2_tunnel1
+  enable_bgp = true
+  custom_bgp_addresses {
+    primary = var.connection2_AWSTunnel1ToVPNGWInstance1_primary_custom_bpg_address
+    secondary = var.connection2_secondary_custom_bgp_ip_address
+  }
+}
+
+## Local network Gateway pointing to AWS S2S connection 2 tunnel-2
+resource "azurerm_local_network_gateway" "LGW_S2S_2_AWSTunnel2ToVPNGWInstance1" {
+  name                = "LGW_S2S_2_AWSTunnel2ToVPNGWInstance1"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  gateway_address     = var.connection2_vpn_gateway_pip_tunnel2
+
+  bgp_settings {
+      asn                 = var.asn
+      bgp_peering_address = var.aws_bgp_ip_address_connection2_tunnel2
+      peer_weight         = 0
+    }
+  depends_on = [
+    azurerm_virtual_network_gateway.VirtualNetworkGateway
+  ]
+}
+
+# # Site VPN connection
+resource "azurerm_virtual_network_gateway_connection" "S2SConnection2_AWSTunnel2ToVPNGWInstance1" {
+  name                = "S2SConnection2_AWSTunnel2ToVPNGWInstance1"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  type                       = "IPsec"
+  virtual_network_gateway_id = azurerm_virtual_network_gateway.VirtualNetworkGateway.id
+  local_network_gateway_id   = azurerm_local_network_gateway.LGW_S2S_2_AWSTunnel2ToVPNGWInstance1.id
+  shared_key = var.shared_key_connection2_tunnel2
+  enable_bgp = true
+  custom_bgp_addresses {
+    primary = var.connection2_AWSTunnel2ToVPNGWInstance1_primary_custom_bpg_address
+    secondary = var.connection2_secondary_custom_bgp_ip_address
+  }
+}
+
 
 # Azure Bastion host
 resource "azurerm_subnet" "AzureBastionSubnet" {
   name                 = "AzureBastionSubnet"
   resource_group_name = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet_work.name
-  address_prefixes     = var.bastion_subnet_address
+  address_prefixes     = ["${var.bastion_subnet_address}"]
 }
 
 resource "azurerm_public_ip" "bastion_pip" {
