@@ -87,8 +87,6 @@ cdk deploy
 
 ## Configuration
 
-> **Note**: This configuration is for bgp-enabled azure vpn gateway **instance0**. Updating ....soon for **instance1**
-
 - In AWS Copy the both outside tunnel ip's.
   - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel.
 - Get the PSK for Tunnel-1 and Tunnel-2.
@@ -101,7 +99,7 @@ cdk deploy
 
 ## Verify the connections
 
-- Check the AWS tunnels are up.![TunnelState](pic/AWS-tunnel-state.png)
+- Check the AWS tunnels are up for both connections.![TunnelState](pic/AWS-tunnel-state.png)
 - Check the Azure VPN gateway connections.
 ![AzureVPNGWconnections](pic/vpn-connections.png)
 - Check the BGP peers status on Azure.
