@@ -36,6 +36,6 @@ module "module_dev" {
   connection2_vpn_gateway_pip_tunnel2 = "3.69.201.243"
   aws_bgp_ip_address_connection2_tunnel2 = "169.254.22.5"
   shared_key_connection2_tunnel2 = "3_M6ncU_o2xj0EoM7I_Vs6.BQPJsM7cX"
-  connection2_AWSTunnel2ToVPNGWInstance1_primary_custom_bpg_address = "169.254.22.2"
+  connection2_AWSTunnel2ToVPNGWInstance1_primary_custom_bpg_address = "169.254.21.2"
   connection2_secondary_custom_bgp_ip_address = "169.254.22.6"
 }
