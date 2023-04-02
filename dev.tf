@@ -10,16 +10,17 @@ module "module_dev" {
 
 # destination network - S2S connection 1. Change details.
 ### --- AWS tunnel 1 ----
-  vpn_gateway_pip_tunnel1 = "18.194.108.179"
   asn = "64512"
-  aws_bgp_ip_address_tunnel1 = "169.254.21.1"
-  shared_key_tunnel1 = "UIb4LhzcgjOrDPjQokAqkijwfrM6pqQg"
+
+  connection1_vpn_gateway_pip_tunnel1 = "18.194.108.179"
+  connection1_aws_bgp_ip_address_tunnel1 = "169.254.21.1"
+  connection1_shared_key_tunnel1 = "UIb4LhzcgjOrDPjQokAqkijwfrM6pqQg"
   custom_apipa_bgp_ip_addresses = ["169.254.21.2","169.254.22.2"]
   AWSTunnel1ToVPNGWInstance0_primary_custom_bpg_address = "169.254.21.2"
 ### --- AWS tunnel 2 ----
-  vpn_gateway_pip_tunne2 = "52.28.228.231"
-  aws_bgp_ip_address_tunnel2 = "169.254.22.1"
-  shared_key_tunnel2 = "m_dKrd2F4vIx.TqLuaGlbXR.U5NgU0yd"
+  connection1_vpn_gateway_pip_tunne2 = "52.28.228.231"
+  connection1_aws_bgp_ip_address_tunnel2 = "169.254.22.1"
+  connection1_shared_key_tunnel2 = "m_dKrd2F4vIx.TqLuaGlbXR.U5NgU0yd"
   AWSTunnel2ToVPNGWInstance0_primary_custom_bpg_address = "169.254.22.2"
   secondary_custom_bgp_ip_address = "169.254.22.6"
 

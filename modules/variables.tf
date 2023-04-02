@@ -36,7 +36,7 @@ variable "bastion_subnet_address" {
 
 # destination network. Change details.
 ### --- connection 1, AWS tunnel 1 ----
-variable "vpn_gateway_pip_tunnel1" {
+variable "connection1_vpn_gateway_pip_tunnel1" {
   default = "35.157.129.116"
   description = "aws Tunnel1 Outside IP address"
 }
@@ -44,11 +44,11 @@ variable "asn" {
   default = 64512
   description = "AWS vpn gateway asn"
 }
-variable "aws_bgp_ip_address_tunnel1" {
+variable "connection1_aws_bgp_ip_address_tunnel1" {
   default = "169.254.21.1"
   description = "AWS bgp ip address. AWS Inside IPv4 CIDR to be 169.254.21.0/30, AWS will use the BGP IP address 169.254.21.1 and Azure will use the IP address 169.254.21.2"
 }
-variable "shared_key_tunnel1" {
+variable "connection1_shared_key_tunnel1" {
   default = "yi7KtSGN7.LX9_7CHXEvM9DM.nwDOkp8"
 }
     ## --- custom azure bgp configuration ---
@@ -63,15 +63,15 @@ variable "AWSTunnel1ToVPNGWInstance0_primary_custom_bpg_address" {
 
 # --- connection 1, AWS tunnel 2 ----
 
-variable "vpn_gateway_pip_tunne2" {
+variable "connection1_vpn_gateway_pip_tunne2" {
   default = "35.157.197.210"
   description = "aws Tunnel2 Outside IP address"
 }
-variable "aws_bgp_ip_address_tunnel2" {
+variable "connection1_aws_bgp_ip_address_tunnel2" {
   default = "169.254.22.1"
   description = "AWS bgp ip address. AWS Inside IPv4 CIDR to be 169.254.22.0/30, AWS will use the BGP IP address 169.254.22.1 and Azure will use the IP address 169.254.22.2"
 }
-variable "shared_key_tunnel2" {
+variable "connection1_shared_key_tunnel2" {
   default = "bJpMALe8_.yPgDdPNLKk6reU8v2uomZl"
 }
 ## --- custom azure bgp configuration ---

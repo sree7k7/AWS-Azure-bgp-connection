@@ -1,6 +1,6 @@
 # aws - azure bgp enabled vpn connection
 
-This guide helps on implementing bgp-enabled vpn connection between AWS and Azure.
+This guide helps on implementing bgp-enabled connection between AWS and Azure.
 
 - A simplified way of this [article](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-aws-bgp).
 - Here, executing scripts in [CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) and [terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started) (widely used with it's pace).
@@ -14,8 +14,8 @@ This guide helps on implementing bgp-enabled vpn connection between AWS and Azur
   - [Prerequsites](#prerequsites)
   - [Purpose](#purpose)
   - [Execute scripts](#execute-scripts)
-    - [Azure](#azure)
-    - [AWS](#aws)
+      - [Azure](#azure)
+      - [AWS](#aws)
   - [Configuration](#configuration)
   - [Verify the connections](#verify-the-connections)
   - [Clean up](#clean-up)
@@ -35,11 +35,11 @@ And to avoid active-passive connection with one custom BGP ip on azure vpn gatew
 
 ## Execute scripts
 
-#### Azure
+### Azure
 
 1. Clone [this](https://github.com/sree7k7/AWS-Azure-bgp-connection) and deploy the code as it is (using terraform). Later, change the parameters (ip's).
 
-2. execute below cmds:
+2. execute below cmds in terminal:
 
 ```terraform
 terraform init
@@ -52,7 +52,7 @@ terraform apply
 
 ![Azure-vpn-gateway-active-active-mode](pic/azure-vpn-gateway.png)
 
-#### AWS
+### AWS
 
 4. Clone [this](https://github.com/sree7k7/AWS-multi-S2S) repo and deploy (*It will provision: two customer gateways (CGW's), VGW, two S2S connections, VPC, public/private subnets, EC2*).
 
@@ -93,9 +93,10 @@ cdk deploy
   - In AWS management console. Navigate to Vpc → site-to-site connections → choose the tunnel → click: Actions → Modify VPN tunnel options.
   ![ModifyVPNTunnel](pic/AWS-modify-vpn.png)
 - Give/paste the AWS tunnel public-ip's and PSK secrets to Azure VPN connections. (doable manually or through code).
-  - In ***variable.tf*** file modify the variables (received from [aws](#aws)): *vpn_gateway_pip_tunnel1*, *vpn_gateway_pip_tunnel2*,
-  *shared_key_tunnel1* and *shared_key_tunnel2*
-- execute: `terraform apply`
+  - In ***dev.tf*** file modify the variables (received from [aws](#aws)): *connection1_vpn_gateway_pip_tunnel1*, *connection1_vpn_gateway_pip_tunnel2*,
+  *connection1_shared_key_tunnel1* and *connection1_shared_key_tunnel2*
+- Change the values for **connection 2**.
+- Execute: `terraform apply`
 
 ## Verify the connections
 
